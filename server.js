@@ -28,6 +28,10 @@ app.use(bodyParser.json() );
 
 // app.use(routes);
 
+app.get('/', (req, res) => {
+  res.render(`index`);
+})
+
 mongoose.connect(MONGO_URL);
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', () => {
