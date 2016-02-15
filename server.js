@@ -10,12 +10,11 @@ const MONGODB_HOST = process.env.MONGODB_HOST || 'localhost';
 const MONGODB_PORT = process.env.MONGODB_PORT || 27017; // eslint-disable-line no-magic-numbers
 const MONGODB_USER = process.env.MONGODB_USER || '';
 const MONGODB_PASS = process.env.MONGODB_PASS || '';
-const MONGODB_NAME = process.env.MONGODB_NAME || 'node-webserver';
 const MONGODB_URL_PREFIX = MONGODB_USER
   ? `${MONGODB_USER}:${MONGODB_PASS}@`
   : '';
 
-const MONGO_URL = `mongodb://${MONGODB_URL_PREFIX}${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_NAME}`;
+const MONGO_URL = `mongodb://${MONGODB_URL_PREFIX}${MONGODB_HOST}:${MONGODB_PORT}/mock-stock`;
 
 // const routes = require('./routes/');
 
