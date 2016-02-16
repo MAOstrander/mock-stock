@@ -1,10 +1,14 @@
 extends ../templates/basic.jade
 
-block body
-  h1 Welcome User
+block content
+  h1 Welcome Mathew
   h3 Stock Portfolio
   section.portfolio-table
     div.t-col.sym Symbol
+      p #{sym}
     div.t-col.cmpny Company
+      p #{comp}
     div.t-col.price Price
+      p #{price}
     div.t-col.qty Qty
+      p #{qty}

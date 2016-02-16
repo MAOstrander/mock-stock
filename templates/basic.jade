@@ -4,7 +4,12 @@ html
     block title
       title= title
       link(rel="stylesheet", href="/styles/main.css")
-  block body
+  body
+    nav
+      ul
+        li <a href="/">Your Portfolio</a>
+        li <a href="/quote">Get Quotes</a>
+    block content
 
   footer
     block footer

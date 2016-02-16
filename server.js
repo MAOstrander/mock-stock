@@ -1,6 +1,6 @@
 "use strict";
 const express = require('express');
-const app = express();  // or const app = require('express')();
+const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -16,7 +16,7 @@ const MONGODB_URL_PREFIX = MONGODB_USER
 
 const MONGO_URL = `mongodb://${MONGODB_URL_PREFIX}${MONGODB_HOST}:${MONGODB_PORT}/mock-stock`;
 
-// const routes = require('./routes/');
+const routes = require('./routes/');
 
 app.set('view engine', 'jade');
 app.locals.title = `Mock Stock`;
@@ -25,11 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded( {extended: false} ) );
 app.use(bodyParser.json() );
 
-// app.use(routes);
-
-app.get('/', (req, res) => {
-  res.render(`index`);
-})
+app.use(routes);
 
 mongoose.connect(MONGO_URL);
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
