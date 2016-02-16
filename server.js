@@ -19,7 +19,7 @@ const MONGO_URL = `mongodb://${MONGODB_URL_PREFIX}${MONGODB_HOST}:${MONGODB_PORT
 // const routes = require('./routes/');
 
 app.set('view engine', 'jade');
-
+app.locals.title = `Mock Stock`;
 // app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded( {extended: false} ) );
