@@ -1,0 +1,14 @@
+.portfolio-table {
+  position: relative;
+}
+
+.t-col {
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+}

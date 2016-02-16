@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();  // or const app = require('express')();
 const mongoose = require('mongoose');
-// const path = require('path');
+const path = require('path');
 const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3000; // eslint-disable-line no-magic-numbers
@@ -20,7 +20,7 @@ const MONGO_URL = `mongodb://${MONGODB_URL_PREFIX}${MONGODB_HOST}:${MONGODB_PORT
 
 app.set('view engine', 'jade');
 app.locals.title = `Mock Stock`;
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded( {extended: false} ) );
 app.use(bodyParser.json() );
