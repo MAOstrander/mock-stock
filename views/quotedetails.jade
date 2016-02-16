@@ -1,0 +1,19 @@
+//- extends ../templates/basic.jade
+extends ./quote.jade
+
+
+block details
+  div #{sym}
+
+  .container
+  h2 Buy/Sell this Stock
+  form(method='POST', action='/')
+    .form-group
+      label Quantity
+      input(type='number', name='qty')
+    .form-group
+      label Buy or Sell
+      input(type="radio", name="dowhat", value="buy")
+      input(type="radio", name="dowhat", value="sell")
+    .form-group
+      input(type='submit', value='Buy')

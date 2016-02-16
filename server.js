@@ -22,7 +22,7 @@ app.set('view engine', 'jade');
 app.locals.title = `Mock Stock`;
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded( {extended: false} ) );
+app.use(bodyParser.urlencoded( {extended: false} ));
 app.use(bodyParser.json() );
 
 app.use(routes);

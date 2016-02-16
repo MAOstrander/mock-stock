@@ -1,11 +1,14 @@
 extends ../templates/basic.jade
 
 block content
-    .container
-    h1 Get Quotes
-    form(method='POST')
-      .form-group
-        label Stock Symbol
-        input(type='text', name='sym', placeholder='XXXX')
-      .form-group
-        input(type='submit', value='Find Stock Details')
+  .container
+  h1 Get Quotes
+  form(method='POST')
+    .form-group
+      label Stock Symbol
+      input(type='text', name='sym', placeholder='XXXX')
+    .form-group
+      input(type='submit', value='Find Stock Details')
+
+  block details
+    p Type in the stock symbol of the company you wish to get a quote from.

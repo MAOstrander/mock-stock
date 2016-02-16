@@ -5,7 +5,7 @@
     "node": "5.5.0"
   },
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -37,6 +37,7 @@
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "jade": "^1.11.0",
-    "mongoose": "^4.4.3"
+    "mongoose": "^4.4.3",
+    "request": "^2.69.0"
   }
 }
