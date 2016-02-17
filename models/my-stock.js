@@ -1,10 +1,10 @@
 'use strict';
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('stockquote',
+module.exports = mongoose.model('mystock',
   mongoose.Schema({
     name: String,
     symbol: String,
-    price: Number
+    qty: Number
   })
 );

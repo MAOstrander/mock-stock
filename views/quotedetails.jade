@@ -3,7 +3,9 @@ extends ./quote.jade
 
 
 block details
-  div #{sym}
+  div #{symbol}
+  div #{name}
+  div #{price}
 
   .container
   h2 Buy/Sell this Stock
@@ -12,8 +14,9 @@ block details
       label Quantity
       input(type='number', name='qty')
     .form-group
-      label Buy or Sell
-      input(type="radio", name="dowhat", value="buy")
-      input(type="radio", name="dowhat", value="sell")
+      label Buy
+        input(type="radio", name="dowhat", value="buy" required)
+      label Sell
+        input(type="radio", name="dowhat", value="sell" required)
     .form-group
-      input(type='submit', value='Buy')
+      input(type='submit', value='Submit')

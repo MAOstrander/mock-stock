@@ -1,7 +1,7 @@
 'use strict';
 const request = require('request');
 
-const Stock = require('../models/stockquote');
+const Stock = require('../models/my-stock');
 
 module.exports.index = (req, res) => {
   res.render('quote');
@@ -15,18 +15,26 @@ module.exports.findstock = (req, res) => {
 
     const thing = JSON.parse(body);
 
-    const myStock = new Stock({
+    const myQuote = new Stock({
       name: thing.Name,
       symbol: thing.Symbol,
-      price: thing.LastPrice
+      qty: 3
     });
 
-    console.log(myStock);
+
+    myQuote.save( (err, result) => {
+      if (err) throw err;
+      console.log("TRYING TO SAVE", result);
+    });
+
+    console.log(myQuote);
     const stockName = thing.Name;
     console.log(stockName);
 
     res.render('quotedetails', {
-      sym: thing.Name
+      name: thing.Name,
+      symbol: thing.Symbol,
+      price: thing.LastPrice
     });
   });
 };
