@@ -21,7 +21,6 @@ module.exports.index = (req, res) => {
         //   thing.price = stockPrice;
         stockArray.push(thing);
         // })
-
       })
 
       res.render('index', {
@@ -42,7 +41,6 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.update = (req, res) => {
-  console.log(req.body);
   const thisPrice = Number(req.body.price);
   const buyOrSell = req.body.dowhat;
   let howMany;
@@ -89,10 +87,9 @@ module.exports.update = (req, res) => {
         }); // END THEN
       });
     } else {
-      myQuote.save( (err, result) => {
+      myQuote.save( (err) => {
         if (err) throw err;
 
-        console.log("TRYING TO SAVE", result);
         Stock.find().sort('-sym').exec( (err, doc) => {
           if (err) throw err;
 

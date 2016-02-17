@@ -17,5 +17,12 @@ block content
       for thing in test
         p #{thing.price}
 
+  - var total = 0;
+  for thing in test
+    - total += thing.price*thing.qty;
+
+  h4.total Portfolio total value: $#{total}
+
   if message
-    h3 #{message}
+    .message
+      h3 #{message}

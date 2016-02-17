@@ -7,7 +7,9 @@
   margin-left: 10px;
   margin-right: 10px;
 }
-
+.total {
+  clear: both;
+}
 nav {
   position: fixed;
   top: 0;
