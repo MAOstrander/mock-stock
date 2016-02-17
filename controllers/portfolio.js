@@ -47,17 +47,7 @@ module.exports.update = (req, res) => {
   const buyOrSell = req.body.dowhat;
   let howMany;
   let message = 'Transaction succesful!';
-  let updateID;
   const stockArray = [];
-
-  Stock.findOne({symbol:req.body.sym}, (err, doc) => {
-    if (err) throw err;
-
-    if (doc) {
-      updateID = doc._id;
-    }
-  });
-
 
   if (buyOrSell === 'buy') {
     howMany = parseInt(req.body.youhave) + parseInt(req.body.qty);
@@ -76,15 +66,14 @@ module.exports.update = (req, res) => {
     qty: howMany
   });
 
-  if (updateID) {
-    myQuote.findById(updateID, (err, foundStock) => {
-      if (err) throw (err);
+  Stock.findOne({symbol:req.body.sym}, (err, doc) => {
+    if (err) throw err;
 
-      foundStock.qty = howMany;
-      foundStock.save( (err) => {
-        if (err) throw (err);
 
-        console.log("TRYING TO UPDATE", foundStock);
+    if (doc) {
+      Stock.update({ _id: doc._id }, { $set: { qty: howMany }}, (err) => {
+        if (err) throw err;
+
         Stock.find().sort('-sym').exec( (err, doc) => {
           if (err) throw err;
 
@@ -99,27 +88,27 @@ module.exports.update = (req, res) => {
           });
         }); // END THEN
       });
-    });
-  } else {
-    myQuote.save( (err, result) => {
-      if (err) throw err;
-
-      console.log("TRYING TO SAVE", result);
-      Stock.find().sort('-sym').exec( (err, doc) => {
+    } else {
+      myQuote.save( (err, result) => {
         if (err) throw err;
 
-        doc.forEach( (thing) => {
-          stockArray.push(thing);
-        })
-      }).then( () => {
+        console.log("TRYING TO SAVE", result);
+        Stock.find().sort('-sym').exec( (err, doc) => {
+          if (err) throw err;
 
-        res.render('index', {
-          test: stockArray,
-          message: message
-        });
-      }); // END THEN
-    });
-  }
+          doc.forEach( (thing) => {
+            stockArray.push(thing);
+          })
+        }).then( () => {
 
+          res.render('index', {
+            test: stockArray,
+            message: message
+          });
+        }); // END THEN
+      });
+    }
+
+  }); // END QUERY
 
 }
