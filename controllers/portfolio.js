@@ -7,7 +7,6 @@ module.exports.index = (req, res) => {
     if (err) throw err;
 
     if (doc) {
-      console.log(">>>>>>>>>>>>>>>", doc);
       const stockArray = [];
 
       doc.forEach( (thing) => {
@@ -25,7 +24,6 @@ module.exports.index = (req, res) => {
 
       })
 
-      console.log("???????????????", stockArray);
       res.render('index', {
         test: stockArray
       });
@@ -33,48 +31,95 @@ module.exports.index = (req, res) => {
     } else {
 
       res.render('index', {
-        sym: 'GOOG',
-        comp: 'Alphabet Inc',
-        price: '$689.67',
-        qty: '5'
+        sym: 'No Stocks',
+        comp: 'click Get Quotes',
+        price: 'to get started',
+        qty: 'buying and selling'
       });
 
     }
   });
-
-
-
 }
 
 module.exports.update = (req, res) => {
   console.log(req.body);
-  const thisPrice = req.body.price
+  const thisPrice = Number(req.body.price);
   const buyOrSell = req.body.dowhat;
   let howMany;
+  let message = 'Transaction succesful!';
+  let updateID;
+  const stockArray = [];
+
+  Stock.findOne({symbol:req.body.sym}, (err, doc) => {
+    if (err) throw err;
+
+    if (doc) {
+      updateID = doc._id;
+    }
+  });
+
 
   if (buyOrSell === 'buy') {
-    howMany = req.body.qty;
+    howMany = parseInt(req.body.youhave) + parseInt(req.body.qty);
   } else if (buyOrSell === 'sell') {
-    howMany = req.body.qty * -1; // eslint-disable-line no-magic-numbers
+    howMany = req.body.youhave - req.body.qty;
+    if (howMany < 0) {
+      howMany = 0;
+      message = 'Attempted to sell more than quantity owned, sold all available instead.';
+    }
   }
 
   const myQuote = new Stock({
     name: req.body.name,
     symbol: req.body.sym,
+    price: thisPrice,
     qty: howMany
   });
 
+  if (updateID) {
+    myQuote.findById(updateID, (err, foundStock) => {
+      if (err) throw (err);
 
-  myQuote.save( (err, result) => {
-    if (err) throw err;
+      foundStock.qty = howMany;
+      foundStock.save( (err) => {
+        if (err) throw (err);
 
-    console.log("TRYING TO SAVE", result);
-    res.render('index', {
-      sym: myQuote.symbol,
-      comp: myQuote.name,
-      price: thisPrice,
-      qty: myQuote.qty
+        console.log("TRYING TO UPDATE", foundStock);
+        Stock.find().sort('-sym').exec( (err, doc) => {
+          if (err) throw err;
+
+          doc.forEach( (thing) => {
+            stockArray.push(thing);
+          })
+        }).then( () => {
+
+          res.render('index', {
+            test: stockArray,
+            message: message
+          });
+        }); // END THEN
+      });
     });
-  });
+  } else {
+    myQuote.save( (err, result) => {
+      if (err) throw err;
+
+      console.log("TRYING TO SAVE", result);
+      Stock.find().sort('-sym').exec( (err, doc) => {
+        if (err) throw err;
+
+        doc.forEach( (thing) => {
+          stockArray.push(thing);
+        })
+      }).then( () => {
+
+        res.render('index', {
+          test: stockArray,
+          message: message
+        });
+      }); // END THEN
+    });
+  }
+
 
 }
