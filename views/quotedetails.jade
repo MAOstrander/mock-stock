@@ -3,16 +3,23 @@ extends ./quote.jade
 
 
 block details
-  div #{symbol}
-  div #{name}
-  div #{price}
-
   .container
-  h2 Buy/Sell this Stock
   form(method='POST', action='/')
+    h2 Stock Details:
+    .form-group
+      label Symbol:
+      input(type='text', name='sym' value='#{symbol}' readonly)
+    .form-group
+      label Company Name:
+      input(type='text', name='name' value='#{name}' readonly)
+    .form-group
+      label Price:
+      input(type='text', name='price' value='#{price}' readonly)
+
+    h2 Buy/Sell this Stock
     .form-group
       label Quantity
-      input(type='number', name='qty')
+      input(type='number', name='qty', min='0')
     .form-group
       label Buy
         input(type="radio", name="dowhat", value="buy" required)
