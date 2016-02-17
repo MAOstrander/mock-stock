@@ -1,4 +1,5 @@
 'use strict';
+// const request = require('request');
 const Stock = require('../models/my-stock');
 
 module.exports.index = (req, res) => {
@@ -6,7 +7,28 @@ module.exports.index = (req, res) => {
     if (err) throw err;
 
     if (doc) {
-      res.send(doc);
+      console.log(">>>>>>>>>>>>>>>", doc);
+      const stockArray = [];
+
+      doc.forEach( (thing) => {
+
+        //  This was a decent idea to get up to date stock info, but it hits the API too quickly and gets rejected
+        // const url = `http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=${thing.symbol}`;
+        // request.get(url, (err, response, body) => {
+        //   if (err) throw err;
+
+        //   var singleStock = JSON.parse(body);
+        //   var stockPrice = singleStock.LastPrice;
+        //   thing.price = stockPrice;
+        stockArray.push(thing);
+        // })
+
+      })
+
+      console.log("???????????????", stockArray);
+      res.render('index', {
+        test: stockArray
+      });
       return;
     } else {
 
@@ -19,6 +41,8 @@ module.exports.index = (req, res) => {
 
     }
   });
+
+
 
 }
 

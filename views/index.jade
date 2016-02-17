@@ -5,10 +5,14 @@ block content
   h3 Stock Portfolio
   section.portfolio-table
     div.t-col.sym Symbol
-      p #{sym}
+      for thing in test
+        p #{thing.symbol}
     div.t-col.cmpny Company
-      p #{comp}
-    div.t-col.price Price
-      p #{price}
+      for thing in test
+        p #{thing.name}
     div.t-col.qty Qty
-      p #{qty}
+      for thing in test
+        p #{thing.qty}
+    div.t-col.price Price
+      for thing in test
+        p #{thing.price}
